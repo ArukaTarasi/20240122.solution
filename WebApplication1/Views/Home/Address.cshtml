@@ -1,0 +1,31 @@
+﻿@{
+    ViewData["Title"] = "Address";
+}
+
+<h1>Address</h1>
+<select id="select1">
+    <option value="Item1">Item1</option>
+    <option value="Item2">Item2</option>
+    <option value="Item3">Item3</option>
+    <option value="Item4">Item4</option>
+</select>
+
+@section Scripts
+{
+    <script>
+        const selCity = document.querySelector('#select1');
+        (async () => {
+            // 取得 cities
+            const response = await fetch('@Url.Content("~/api/cities")');
+            // 取的之中的 Json 資料
+            const cities = await response.json();
+            const optCities = cities.map(city => `<option value="${city}">${city}</option>`);
+            // 同上，比較正規的作法，但因為只有一房所以不用特別return
+            // const optCities = cities.map(city => {
+            //     return  (`<option value="${city}">${city}</option>`;)
+            // })
+            selCity.innerHTML = optCities.join("");//同之前的實作.join 可以將陣列的中的Itemm用某個字串接，目前是用空自串串接
+        })();
+    </script>
+}
+

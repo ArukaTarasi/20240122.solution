@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "First";
+}
+
+<h1>First</h1>
+<button id="button1" class="btn btn-primary mb-3">Ajax 開始</button>
+<button id="button2" class="btn btn-primary mb-3">Ajax 停止</button>
+<img src="~/images/Hourglass.gif" id="img1" style="display:none"/>
+<div id="div1" class="alert alert-info"></div>
+
+@section Scripts
+{
+    <script>
+        const btn = document.querySelector('#button1');
+        const btnStop = document.querySelector('#button2');
+        const theDiv = document.querySelector("#div1");
+        const imgLoader = document.querySelector('#img1');
+        let abortController;
+        btnStop.addEventListener("click", () => {
+            if (abortController) {
+                abortController.abort();
+            }
+        })
+
+        btn.addEventListener("click",async () => {
+            // Ajax
+            // fetch 方法是 ajax 的起手式
+            // fetch('/api/index') // fetch() 括號中用來放你要呼叫的程式 或 網址
+            //     //第一個 then 用來取得整個 response 物件
+            //     .then(response => {
+            //         // console.log(response);
+            //         // console.log(response.text());
+            //         return response.text();
+            //     })
+            //     //第二個 then 用來取得其中 response.text() 的結果
+            //     .then(data => {
+            //         // console.log(data);
+            //         theDiv.innerHTML = `<h2>${data}<h2>`;
+            //     })
+            //     //theDiv.innerHTML = "<h2>Ajax...<h2>";
+
+            //實際操作
+            // fetch('~/api/index') //~指向專案跟目錄，而專案跟目錄是wwwroot 不能使用~
+            // fetch('@Url.Content("/api/index")')
+            //     .then(response => {
+            //         // headers 的資料
+            //         response.headers.forEach((value, name) => {
+            //             console.log(`${name}: ${value}`);
+            //         })
+            //         console.log(`ok:${response.ok}`);
+            //         console.log(`status${response.status}`);
+            //         return response.text()
+            //     })
+            //     .then(data => {
+            //         //讀出資料，顯示資料
+            //         //console.log(data);
+            //         theDiv.innerHTML = `<h2>${data}<h2>`;
+            //     })
+
+            //實際實作2
+
+            try 
+            {
+                //顯示執行圖示
+                imgLoader.style.display = "inline";
+                //停用按鈕
+                btn.setAttribute('disabled','disabled');
+                //建立abortController物件
+                abortController = new AbortController();
+                const signal = abortController.signal;
+
+                //設定幾秒鐘沒回傳，終止程式(ex: 8秒)
+                // setTimeout(() => {
+                //     abortController.abort();
+                // }, 8000);
+
+                const respose = await fetch('@Url.Content("~/api/index")', {signal});
+                // not false
+                if (!respose.ok) 
+                {
+                    throw new Error(respose.status);
+                }
+                const data = await respose.text();
+                theDiv.innerHTML = `<h2>${data}<h2>`;
+            }
+            catch (error) 
+            {
+                theDiv.innerHTML = `<h2>${error}<h2>`;
+            }
+            finally
+            {
+                imgLoader.style.display = "none";
+                //停用按鈕
+                btn.removeAttribute('disabled');
+            }
+          
+        })
+    </script>
+}
