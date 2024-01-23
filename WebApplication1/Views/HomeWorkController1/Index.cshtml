@@ -1,0 +1,76 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div class="travel">
+</div>
+<hr>
+@section Scripts
+{
+    <script src="~/js/travel.js"></script>
+    <style>
+        .card-title 
+        {
+            overflow: hidden; /* 隱藏溢出文字 */
+            text-overflow: ellipsis; /* 省略號表示截斷文字 */
+            white-space: nowrap; /* 限制換行 */
+        }
+
+        .travel 
+        {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .card 
+        {
+            width: calc(25% - 10px);
+            min-width: 200px;
+            margin: 5px;
+            box-sizing: border-box;
+        }
+
+        .card img 
+        {
+            width: 100%; 
+            height: auto; /* 自動計算高度，保持圖片比例 */
+            max-width: 100%; 
+            display: block; 
+            margin: 0 auto; 
+        }
+    </style>
+    <script>
+        let myDiv = document.querySelector(".travel");
+        let emps = spots.CommonFormat.Section;
+        let imgURL = "";
+        let htmlEmps = emps.map((emp) => {
+            let { stitle, xbody, file } = emp;
+            try {
+                imgURL = file.img[0].text;
+            } catch {
+                imgURL = "";
+            }
+
+            // 限制 xbody 字數
+            if (xbody.length > 80) {
+                xbody = xbody.substring(0, 80) + "…";
+            }
+
+            return(`<hr>
+                    <div class="card">
+                    <img class="card-img-top" src="${imgURL}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">${stitle}</h5>
+                            <p class="card-text">${xbody}</p>
+                            <a href="#" class="btn btn-success">更多詳情…</a>
+                        </div>
+                    </div>`
+            )
+        });
+        myDiv.innerHTML = htmlEmps.join("");
+    </script>
+}

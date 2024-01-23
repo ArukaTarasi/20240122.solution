@@ -1,0 +1,150 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+<p>參考</p>
+<ul>
+    <li>Tom, 3 ,45000</li>
+    <li>John, 2 ,35000</li>
+    <li>Jane, 1 ,34000</li>
+</ul>
+<hr />
+<p>實作</p>
+<table id="mytable">
+</table>
+
+@section Scripts {
+    <script>
+        const theUl = document.querySelector('#mytable');
+
+        const emps = [{ "name": "Tom", "workYears": 1, "salary": 45000 },
+        { "name": "Jack", "workYears": 2, "salary": 50000 },
+        { "name": "Mary", "workYears": 3, "salary": 55000 }];
+
+        const htmlEmps = emps.map((emp) => {
+            const { name, workYears, salary } = emp;
+            return (
+                `<tr>
+                    <td>${name},${workYears},${salary}</td>
+                </tr>`
+            )
+        })
+
+        theUl.innerHTML = htmlEmps.join("");
+
+        // 練習 用console.log 讀出 JSON
+        // 提示
+        // console.log(emps[0]); // { "name": "Tom", "workYears": 3, "Salary": 45000 }
+        // console.log(emps[1].name); // John
+
+        // JSON轉成字串
+        // for 的作法
+        // for (let i = 0; i < emps.length; i++) {
+        //     console.log(emps[i].name);
+        //     console.log(emps[i].workYears);
+        //     console.log(emps[i].Salary);
+        // }
+        // forEach 的作法顯示物件
+        // emps.forEach(function (emp) {
+        //     console.log(emp);
+        // });
+
+        // map 的作法逐一顯示
+        // emps.map(function (emp) {
+        //     console.log(emp.name);
+        //     console.log(emp.workYears);
+        //     console.log(emp.Salary);
+        // });
+
+        // JSON資料的讀取
+        // for (let i = 0, max = emps.length; i < max; i++) {
+        //     console.log(emps[i].name);
+        //     console.log(emps[i].workYears);
+        //     console.log(emps[i].salary);
+        // }
+
+        // Array.方法()
+        // const docFrag = document.createDocumentFragment();
+        // emps.forEach((emp) => {
+        //     // console.log(emp.name);
+        //     // console.log(emp.workYears);
+        //     // console.log(emp.salary);
+        //     //emp.name + "," + emp.workYears + "," + emp.salary
+        //     const eleLi = document.createElement("li"); //<li>
+        //     const txtLi = document.createTextNode(`${emp.name},${emp.workYears},${emp.salary}`); //Tom,3,35000
+        //     eleLi.appendChild(txtLi); //<li>Tom,3,35000</li>
+        //     //先加到空的容器中
+        //     docFrag.appendChild(eleLi); //<ul><li>Tom,3,35000</li></ul>
+
+
+        //建立Promisse
+        // function show(data) {
+        //     const promise = new Promise((resolve, reject) => {
+        //         //非同步程式碼 1秒後執行resolve
+        //         SetTimeout(() => { resolve(data) }, 1000);
+        //     });
+        //     //回傳Promise
+        //     return promise;
+        // }
+
+        // //實作Promisse
+        // promise
+        //     .then((data) => {
+        //         console.log(data);
+        //     })
+        //     .catch((err) => {
+        //         console.log(err);
+        //     })
+        //     .finally(() => {
+        //         console.log("結束");
+        //     })
+
+        // // 範例 1.建立一個Promisse物件
+        // const promise = new Promise((resolve, reject) => {
+        //     //非同步程式碼
+        //     const num = Math.random() > 0.5 ? 1 : 0;
+        //     if (num) {
+        //         resolve("結果大於0.5");
+        //     }
+        //     else {
+        //         reject("結果小於0.5");
+        //     }
+        // })
+
+        // // 範例 2.建立一個Promisse物件
+        // show("A")
+        //     //  過程中進行非同步操作
+        //     .then((data) => {
+        //         // 當第一個 Promise 完成後，執行這個回調函式，並且將該 Promise 的結果印出
+        //         console.log(data)
+        //         // 返回另一個 Promise 以便後續鏈接
+        //         return show("B")
+        //     })
+        //     .then((data) => {
+        //         console.log(data)
+        //         return show("C")
+        //     })
+        //     .finally(() => {
+        //         console.log("結束")
+        //     });
+
+        // 範例 3.建立一個Promisse物件
+        // async await => 用同步的程式語法結構來完成非同步的效果
+        // async 放在函式旁邊表示接下來的程式碼會是非同步的
+        // await 放在函式內部表示要等待 Promise 完成後才會往下執行
+        // 立即執行含式 IIFE ，網頁載入就會馬上執行
+        // (() => { })();
+        // (async () => {
+        //     let data = await show("A");
+        //     console.log(data);
+        //     data = await show("B");
+        //     console.log(data);
+        //     data = await show("C");
+        //     console.log(data);
+        // })();
+    </script>
+}
