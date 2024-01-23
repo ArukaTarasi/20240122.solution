@@ -2,7 +2,7 @@
 
 namespace WebApplication1.Controllers
 {
-    public class HomeWorkController1 : Controller
+    public class HomeWork1 : Controller
     {
         public IActionResult Index()
         {
