@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\EFModel\" />
-    <Folder Include="Views\HomeWork2\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\js\travel.js" />
   </ItemGroup>
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using WebApplication1.Models.Dto;
 
 namespace WebApplication1.Controllers
 {
@@ -60,13 +61,19 @@ namespace WebApplication1.Controllers
             return NotFound();
         }
 
-        public IActionResult Register(string name,int age = 20)
+        public IActionResult HomWork2()
         {
-            if (string.IsNullOrEmpty(name))
+            return View();
+        }
+
+        //public IActionResult Register(string name,int age = 20)
+        public IActionResult Register(MemberDto member)
+        {
+            if (string.IsNullOrEmpty(member.Name))
             {
-                name = "Guest";
+                member.Name = "Guest";
             }
-            return Content($"Hello {name} m You are {age} years old");
+            return Content($"Hello {member.Name}，{member.Age} 歲了，電子郵件是{member.Email}");
         }
     }
 }

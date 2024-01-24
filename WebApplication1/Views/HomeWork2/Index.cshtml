@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<div>
+    <p>姓名</p>
+    <input type="text" id="name" />
+    <div id="nameDiv" class="alert alert-info" ></div>
+</div>
+<div>
+    <p>電子信箱</p>
+    <input type="text" id="email" />
+</div>
+<div>
+    <p>年龄</p>
+    <input type="text" id="age" />
+</div>
+<div>
+    <button id="button1" class="btn btn-primary mb-3">送出</button>
+    <div id="div1" class="alert alert-info"></div>
+</div>
+
+
+@section Scripts
+{
+    <script>
+        const nameText = document.querySelector('#name');
+        const theDiv = document.querySelector('#nameDiv');
+
+        nameText.addEventListener('input', (event) => { 
+            
+        }
+    </script>
+}
