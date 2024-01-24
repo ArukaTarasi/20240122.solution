@@ -143,6 +143,7 @@ namespace WebApplication1.Controllers
             {
                 Avatar?.CopyTo(fileStream);
             }
+            //test
 
             //轉成二進位
             byte[]? imgByte = null;
