@@ -8,11 +8,11 @@ namespace WebApplication1.Controllers
 {
     public class ApiController : Controller
     {
-        private readonly MyDBContext _dBContext;
+        private readonly MyDBContext _dbContext;
         private readonly IWebHostEnvironment _host;
         public ApiController(MyDBContext dBContext, IWebHostEnvironment host)
         {
-            _dBContext = dBContext;
+            _dbContext = dBContext;
             _host = host;
         }
 
@@ -40,7 +40,7 @@ namespace WebApplication1.Controllers
         public IActionResult Cities()
         {
 
-            var products = _dBContext.Addresses.Select(p => p.City).Distinct();
+            var products = _dbContext.Addresses.Select(p => p.City).Distinct();
             return Json(products);
             //return Json(products);
         }
@@ -48,13 +48,13 @@ namespace WebApplication1.Controllers
         public IActionResult Districts(string city)
         {
             //根據City，取得不重複的 SiteId 放入 districts
-            var districts = _dBContext.Addresses.Where(p => p.City == city).Select(p => p.SiteId).Distinct();
+            var districts = _dbContext.Addresses.Where(p => p.City == city).Select(p => p.SiteId).Distinct();
             return Json(districts);
         }
 
         public IActionResult Avatar(int id = 1)
         {
-            Member? member = _dBContext.Members.Find(id);
+            Member? member = _dbContext.Members.Find(id);
 
             if (member != null)
             {
@@ -67,7 +67,7 @@ namespace WebApplication1.Controllers
         public IActionResult HomeWork2(string name)
         {
             // todo 判斷資料庫使否有使用者
-            Member? member = _dBContext.Members.Where(p => p.Name == name).FirstOrDefault();
+            Member? member = _dbContext.Members.Where(p => p.Name == name).FirstOrDefault();
             if (member != null)
             {
                 return Content($"{name}已註冊");
@@ -153,6 +153,10 @@ namespace WebApplication1.Controllers
             }
             member.FileName = fileName;
             member.FileData = imgByte;
+
+            //新增
+            _dbContext.Members.Add(member);
+            _dbContext.SaveChanges();
             #endregion
 
             #region return
@@ -177,8 +181,8 @@ namespace WebApplication1.Controllers
         {
             // 根據分類編號讀取景點資料
             var spots = _search.categoryId == 0
-                ? _dBContext.SpotImagesSpots
-                : _dBContext.SpotImagesSpots.Where(p => p.CategoryId == _search.categoryId);
+                ? _dbContext.SpotImagesSpots
+                : _dbContext.SpotImagesSpots.Where(p => p.CategoryId == _search.categoryId);
 
             //根據關鍵字搜尋
             if (!string.IsNullOrEmpty(_search.keyword))
