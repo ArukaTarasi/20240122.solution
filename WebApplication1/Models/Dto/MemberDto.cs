@@ -7,5 +7,7 @@
         public string? Email { get; set; } 
 
         public int? Age { get; set; } = 29;
+
+        public IFormFile? Avatar { get; set; } 
     }
 }

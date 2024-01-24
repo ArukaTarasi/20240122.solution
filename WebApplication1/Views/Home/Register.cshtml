@@ -19,7 +19,10 @@
                 <label for="userAge" class="form-label">年紀：</label>
                 <input type="number" class="form-control" id="userAge" name="Age">
             </div>
-
+            <div class="mb-3">
+                <label for="userAvatar" class="custom-file-label">頭像：</label>
+                <input type="file" class="custom-file-input" id="userAvatar" name="Avatar">
+            </div>
             <button id="button1" type="submit" class="btn btn-primary">送出</button>
         </form>
         <div class="alert alert-info" id="div1"></div>
@@ -32,9 +35,9 @@
 {
     <script>
         const btn = document.querySelector('#button1');
-        const txtName = document.querySelector('#userName');
-        const txtEmail = document.querySelector('#UserEmail');
-        const txtAge = document.querySelector('#userAge');
+        // const txtName = document.querySelector('#userName');
+        // const txtEmail = document.querySelector('#UserEmail');
+        // const txtAge = document.querySelector('#userAge');
         const div1 = document.querySelector('#div1');
         const form = document.querySelector('#userForm');
 
@@ -55,20 +58,35 @@
             // const result = await response.text();
             // div1.innerHTML = datas;
 
-            // 實作2
-            // 將 FormData 資料透過 Get 傳遞，沒有指定傳遞方式預設是 GET
+            // 實作2 將 FormData 資料透過 Get 傳遞，沒有指定傳遞方式預設是 GET
             // formData.append("city", "中壢"); // append() 方法，在某個物件中添加一個數據
+            // // 透過迴圈讀取檔案資料
             // for (const pair of formData.entries()) 
             // {
             //     console.log(`${pair[0]}, ${pair[1]}`);
             // }
 
-            // 實作3
-            // 將 FormData 資料透過 POST 傳到 Server
+            // 實作3 將 FormData 資料透過 POST 傳到 Server
+            // const url = `@Url.Content("~/api/register")`;
+            // const response = await fetch(url, {
+            //     method: 'POST',// 指定 POST 方式
+            //     body: formData // 傳遞資料存放到 body
+            // });
+            // const datas = await response.text();
+            // div1.innerHTML = datas;
+
+            //實作4 
+            // 讀取上傳檔案
+            // 透過迴圈讀取檔案資料
+            // for (const pair of formData.entries())
+            // {
+            //     console.log(pair[0]);// 欄位
+            //     console.log(pair[1]);// 值
+            // }
             const url = `@Url.Content("~/api/register")`;
             const response = await fetch(url, {
                 method: 'POST',// 指定 POST 方式
-                body: formData
+                body: formData // 傳遞資料存放到 body
             });
             const datas = await response.text();
             div1.innerHTML = datas;

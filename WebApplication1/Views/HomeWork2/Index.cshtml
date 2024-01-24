@@ -6,7 +6,7 @@
 <h1>Index</h1>
 <div>
     <p>姓名</p>
-    <input type="text" id="name" />
+    <input type="text" id="name" value=""/>
     <div id="nameDiv" class="alert alert-info" ></div>
 </div>
 <div>
@@ -29,8 +29,10 @@
         const nameText = document.querySelector('#name');
         const theDiv = document.querySelector('#nameDiv');
 
-        nameText.addEventListener('input', (event) => { 
-            
-        }
+        nameText.addEventListener("focusout", async () => {
+            const respose = await fetch(`@Url.Content("~/api/HomeWork2")?name=${nameText.velue}`);
+            const data = await respose.text();
+            theDiv.innerHTML = `${data}`;
+        });
     </script>
 }
