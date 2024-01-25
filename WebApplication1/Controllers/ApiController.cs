@@ -77,6 +77,7 @@ namespace WebApplication1.Controllers
 
         //public IActionResult Register(string name,int age = 20)
         //public IActionResult Register(MemberDto member) //實作1 2
+        [HttpPost]
         public IActionResult Register(Member member, IFormFile Avatar) //實作3
         {
             //未取得使用者判斷
@@ -219,10 +220,20 @@ namespace WebApplication1.Controllers
             spotsPaging.SpotsResult = spots.ToList();
 
             return Json(spotsPaging);
-            //return Json(spots);//檢查 Json 讀取頁面
-            //return Json(_search);
-            //return Content("spots");
         }
         #endregion
+
+        public IActionResult Categories()
+        {
+            return Json(_dbContext.Categories);
+        }
+
+        public IActionResult SpotsTitle(string keyword)
+        {
+            var spots = _dbContext.Spots.Where(s => s.SpotTitle.Contains(keyword))
+                               .Select(s => s.SpotTitle).Take(8);
+            return Json(spots);
+
+        }
     }
 }
